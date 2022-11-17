@@ -26,29 +26,28 @@ class Highway:
 
 
     def __str__(self):
-        print('Entra al menos')
-        print(f'carro {self._car.node.x} , {self._car.node.y}')
-        if (self._car.node.x - 10 < 0):
+        # print(f'carro {self._car.node.x} , {self._car.node.y}')
+        if (self._car.node.x - 10 <= 0):
             start_x = 0
         else:
-            start_x = self._car.node.x - 9
-        if (self._car.node.y - 10 < 0):
+            start_x = self._car.node.x - 10
+        if (self._car.node.y - 10 <= 0):
             start_y = 0
         else:
-            start_y = self._car.node.y - 9
-        if (self._car.node.x + 10 >= self._num_columns):
-            end_x = self._num_columns - 1
+            start_y = self._car.node.y - 10
+        if (self._car.node.x + 10 >= self._num_rows):
+            end_x = self._num_rows
         else:
-            end_x = self._car.node.x + 9
-        if (self._car.node.y + 10 >= self._num_rows):
-            end_y = self._num_rows - 1
+            end_x = self._car.node.x + 10
+        if (self._car.node.y + 10 >= self._num_columns):
+            end_y = self._num_columns
         else:
-            end_y = self._car.node.y + 9
+            end_y = self._car.node.y + 10
 
-        print(f'x -> ({start_x, end_x}) y -> ({start_y, end_y})')
+        # print(f'x -> ({start_x, end_x}) y -> ({start_y, end_y})')
         result = f'Iteración Nº {Highway.iteracion}\n'
-        for i in range(start_y, end_y):
-            for j in range(start_x, end_x):
+        for i in range(start_x, end_x):
+            for j in range(start_y, end_y):
                 result += str(self._matrix[i][j].__str__()).center(3, ' ')
                 # result += ('(' + str(i) + ',' + str(j) + ')').center(8,' ')
                 # result += '[' + ('(' + str(i) + ',' + str(j) + ')').center(8,' ') + str(self._matrix[i][j].__str__()).center(3, ' ') + '] '
@@ -98,7 +97,7 @@ class Highway:
                 south = Node(actual.x, actual.y + 1)
                 east = Node(actual.x + 1, actual.y)
                 west = Node(actual.x - 1, actual.y)
-                aux = [north, south, east, west]
+                aux = [east, west, north, south]
                 neighbours = []
                 for a in aux:
                     if not(a in self._close_array):
